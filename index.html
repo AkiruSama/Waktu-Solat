@@ -9,7 +9,13 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .font-amiri { font-family: 'Amiri', serif; line-height: 1.8; }
+        
+        /* Penambahan jarak baris (leading) yang lebih luas untuk ayat Quran */
+        .font-amiri { 
+            font-family: 'Amiri', serif; 
+            line-height: 2.2; /* Jarak vertical line ditingkatkan */
+            word-spacing: 4px;
+        }
         
         @keyframes fall {
             0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.8; }
@@ -87,7 +93,6 @@
                         </label>
                         <div class="relative">
                             <select id="zone-select" class="w-full p-3.5 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-emerald-500/40 border transition-theme cursor-pointer font-medium">
-                                <!-- Zon disuntik JS -->
                             </select>
                             <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none text-slate-400"></i>
                         </div>
@@ -116,18 +121,18 @@
             </div>
 
             <!-- Bahagian Al-Quran -->
-            <section id="quran-card" class="p-8 md:p-12 rounded-[2rem] text-center relative overflow-hidden group border transition-theme shadow-lg">
+            <section id="quran-card" class="p-8 md:p-14 rounded-[2rem] text-center relative overflow-hidden group border transition-theme shadow-lg">
                 <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                     <i data-lucide="book-open" class="w-32 h-32"></i>
                 </div>
                 <div class="relative z-10">
-                    <h2 class="text-emerald-600 text-xs font-black uppercase tracking-[0.3em] mb-10 flex items-center justify-center gap-3">
-                        <span class="h-[px] w-8 bg-emerald-600/20"></span>
+                    <h2 class="text-emerald-600 text-xs font-black uppercase tracking-[0.3em] mb-12 flex items-center justify-center gap-3">
+                        <span class="h-[1px] w-8 bg-emerald-600/20"></span>
                         Ayat Al-Quran Pilihan
                         <span class="h-[1px] w-8 bg-emerald-600/20"></span>
                     </h2>
-                    <!-- Teks Arab dengan leading/spacing yang lebih baik -->
-                    <p id="quran-text" class="text-3xl md:text-5xl font-amiri mb-10 rtl px-4 transition-theme">
+                    <!-- leading dinaikkan untuk mengelakkan baris bertindih -->
+                    <p id="quran-text" class="text-3xl md:text-5xl font-amiri mb-12 rtl px-4 transition-theme leading-[2.5] md:leading-[2.8]">
                         ...
                     </p>
                     <div id="quran-ref" class="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-theme border">
@@ -256,7 +261,6 @@
         }
 
         function triggerConfetti(emoji) {
-            // Pengurangan count untuk effect lebih minimal
             const count = 2; 
             for (let i = 0; i < count; i++) {
                 const p = document.createElement('div');
@@ -282,7 +286,6 @@
 
             if (activeEvent) {
                 if (!confettiInterval) {
-                    // Jeda masa lebih lama antara confetti
                     confettiInterval = setInterval(() => triggerConfetti(activeEvent.emoji), 4000);
                 }
             } else {
@@ -333,8 +336,8 @@
                 timeDivider.className = "flex flex-col items-center md:items-end justify-center px-6 py-2 border-l border-slate-700";
                 clock.className = "text-3xl font-mono font-black text-white";
                 
-                quranCard.className = "p-8 md:p-12 rounded-[2rem] text-center relative overflow-hidden group border bg-slate-800 border-slate-700";
-                qTxt.className = "text-3xl md:text-5xl font-amiri mb-10 rtl px-4 text-emerald-50";
+                quranCard.className = "p-8 md:p-14 rounded-[2rem] text-center relative overflow-hidden group border bg-slate-800 border-slate-700";
+                qTxt.className = "text-3xl md:text-5xl font-amiri mb-12 rtl px-4 text-emerald-50 leading-[2.2] md:leading-[2.8]";
                 qRef.className = "inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
                 
                 g1.className = "absolute top-[-10%] left-[-10%] w-[40%] h-[40%] blur-[120px] rounded-full bg-emerald-900/30";
@@ -361,8 +364,8 @@
                 timeDivider.className = "flex flex-col items-center md:items-end justify-center px-6 py-2 border-l border-slate-100";
                 clock.className = "text-3xl font-mono font-black text-slate-800";
                 
-                quranCard.className = "p-8 md:p-12 rounded-[2rem] text-center relative overflow-hidden group border bg-white border-slate-200 shadow-lg";
-                qTxt.className = "text-3xl md:text-5xl font-amiri mb-10 rtl px-4 text-slate-800";
+                quranCard.className = "p-8 md:p-14 rounded-[2rem] text-center relative overflow-hidden group border bg-white border-slate-200 shadow-lg";
+                qTxt.className = "text-3xl md:text-5xl font-amiri mb-12 rtl px-4 text-slate-800 leading-[2.2] md:leading-[2.8]";
                 qRef.className = "inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-100";
                 
                 g1.className = "absolute top-[-10%] left-[-10%] w-[40%] h-[40%] blur-[120px] rounded-full bg-emerald-500/10";
@@ -485,7 +488,6 @@
         }, 1000);
 
         window.onload = () => {
-            // Auto update copyright year
             document.getElementById('copyright-year').innerText = new Date().getFullYear();
 
             const select = document.getElementById('zone-select');
